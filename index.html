@@ -98,7 +98,7 @@ const norm=s=>String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/
 let st={v:"list",q:"",cat:"todos",id:null,tab:"pendente"},extra=[],items=[],msg="",tok=null;
 try{tok=localStorage.getItem("sos_tok")}catch(e){}
 async function api(path,o={},t){
- const r=await fetch(SB_URL+path,{...o,headers:{apikey:SB_KEY,Authorization:"Bearer "+(t||SB_KEY),"Content-Type":"application/json",...(o.headers||{})}});
+ const r=await fetch(SB_URL+path,{...o,headers:{apikey:SB_KEY,...((t||SB_KEY.startsWith("eyJ"))?{Authorization:"Bearer "+(t||SB_KEY)}:{}),"Content-Type":"application/json",...(o.headers||{})}});
  if(!r.ok)throw new Error(r.status+" "+await r.text());
  const x=await r.text();return x?JSON.parse(x):null}
 const all=()=>A.concat(extra);
@@ -160,7 +160,7 @@ document.addEventListener("click",async e=>{
  else if(t.hasAttribute("data-logout")){tok=null;try{localStorage.removeItem("sos_tok")}catch(x){}st.v="list"}
  else if(t.hasAttribute("data-login")){
   try{const r=await api("/auth/v1/token?grant_type=password",{method:"POST",body:JSON.stringify({email:$("#l_mail").value.trim(),password:$("#l_pass").value})});
-   tok=r.access_token;try{localStorage.setItem("sos_tok",tok)}catch(x){}msg="";await loadAdm();return}catch(x){msg="E-mail ou senha incorretos."}}
+   tok=r.access_token;try{localStorage.setItem("sos_tok",tok)}catch(x){}msg="";await loadAdm();return}catch(x){let m=String(x.message);try{const j=JSON.parse(m.slice(m.indexOf("{")));m=j.error_description||j.msg||j.message||m}catch(e){}msg="Falha no login: "+m}}
  else if(t.hasAttribute("data-send")){
   const g=i=>$("#"+i).value.trim();
   const b={cat:g("f_cat"),titulo:g("f_title"),marca:g("f_brand"),equip:g("f_equip"),causas:g("f_causes"),passos:g("f_steps"),obs:g("f_notes"),status:"pendente"};
