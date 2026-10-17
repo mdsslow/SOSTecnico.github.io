@@ -53,6 +53,34 @@ footer{margin-top:28px;text-align:center}
 :root{--al:#c2570c;--al2:#fdf0e6}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--al:#f0955a;--al2:#33241a}}
 :root[data-theme="dark"]{--al:#f0955a;--al2:#33241a}
+
+/* ===== Visual leve ===== */
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,var(--ac),#3d97f2);display:grid;place-items:center;box-shadow:0 4px 12px rgba(11,107,203,.3);flex:none}
+.logo svg{width:24px;height:24px}
+h1{font-size:21px;letter-spacing:-.01em}
+.card,.tile,.btn,.chip{transition:transform .15s,box-shadow .15s,border-color .15s,filter .15s}
+.card{box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.09);border-color:var(--ac)}
+.card h2{font-size:17px}
+.tile{background:linear-gradient(135deg,var(--card) 55%,var(--ac2));box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.tile.alarme{background:linear-gradient(135deg,var(--card) 55%,var(--al2))}
+.tile:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.1)}
+.btn{box-shadow:0 2px 6px rgba(11,107,203,.25)}
+.btn:hover{filter:brightness(1.08)}.btn:active{transform:scale(.97)}
+.btn.ok{box-shadow:0 2px 6px rgba(26,127,75,.25)}.btn.no{box-shadow:0 2px 6px rgba(192,57,43,.25)}
+.btn.alt{background:var(--ac2);color:var(--ac);box-shadow:none}
+.chip:hover{border-color:var(--ac)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px var(--ac2)}
+.box{box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.tag.warn{background:#fdecea;color:var(--no)}
+.tag.edit{background:#fff4d6;color:#8a6100}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tag.warn{background:#3a1f1c}:root:not([data-theme="light"]) .tag.edit{background:#3a3014;color:#e8c36a}}
+.adm h3{margin:12px 0 4px}
+.adm.gone b{text-decoration:line-through;opacity:.6}
+.ok-msg{color:var(--ok);font-weight:600}
+label.lb{display:block;font-size:13px;color:var(--mu);margin:4px 0 4px}
+textarea.big{min-height:130px}
 </style>
 </head>
 <body>
@@ -152,13 +180,16 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const lines=t=>String(t||"").split(/\n+/).map(x=>x.trim()).filter(Boolean);
 const norm=s=>String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
-let st={v:"list",q:"",cat:"todos",id:null,tab:"pendente"},extra=[],items=[],msg="",tok=null;
+let st={v:"list",q:"",cat:"todos",id:null,tab:"pendente",edit:null},extra=[],items=[],msg="",tok=null;
 try{tok=localStorage.getItem("sos_tok")}catch(e){}
 async function api(path,o={},t){
  const r=await fetch(SB_URL.trim().replace(/\/+$/,"").replace(/\/(rest|auth)\/v1.*$/,"")+path,{...o,headers:{apikey:SB_KEY,...((t||SB_KEY.startsWith("eyJ"))?{Authorization:"Bearer "+(t||SB_KEY)}:{}),"Content-Type":"application/json",...(o.headers||{})}});
  if(!r.ok)throw new Error(r.status+" "+await r.text());
  const x=await r.text();return x?JSON.parse(x):null}
-const all=()=>A.concat(extra);
+const GONE="__removido__";
+const all=()=>{const o={};extra.forEach(x=>{if(x.ref)o[x.ref]=x});const b=[];
+ A.forEach(a=>{const x=o[a.id];if(!x)b.push(a);else if(!x.removed)b.push({...x,id:a.id,src:a.src})});
+ return b.concat(extra.filter(x=>!x.ref))};
 function list(){
  const q=norm(st.q);
  const base=all().filter(a=>!q||norm([a.title,a.brand,a.equip,[].concat(a.causes||[]).join(" ")].join(" ")).includes(q));
@@ -174,7 +205,7 @@ function list(){
   const a=AREAS.find(x=>x[0]===st.cat),r=base.filter(x=>x.cat===st.cat);
   body=`<button class="back" data-cat="todos">← Todas as áreas</button><h3 class="sec ${a[0]}">${a[1]} (${r.length})</h3>`+(r.length?r.map(card).join(""):none);
  }
- return `<div class="top"><div><h1>SOS Técnico</h1><small class="meta">CFTV e Alarmes</small></div><button class="btn" data-go="form">+ Enviar solução</button></div>
+ return `<div class="top"><div class="brand"><span class="logo"><svg viewBox="0 0 64 64"><path d="M32 8l20 8v14c0 13-8.500 21-20 26C20.500 51 12 43 12 30V16z" fill="#fff"/><circle cx="32" cy="31" r="8" fill="#0b6bcb"/><circle cx="32" cy="31" r="3.500" fill="#fff"/></svg></span><div><h1>SOS Técnico</h1><small class="meta">CFTV e Alarmes</small></div></div><button class="btn" data-go="form">+ Enviar solução</button></div>
  <input id="q" type="search" placeholder="Buscar em CFTV e Alarmes: marca, equipamento ou problema" value="${esc(st.q)}">
  ${body}
  <footer><button class="lnk" data-go="admin">Acesso administrador</button></footer>`}
@@ -205,21 +236,44 @@ function login(){return `<button class="back" data-go="list">← Voltar</button>
  <button class="btn" data-login>Entrar</button><p class="meta">${esc(msg)}</p>`}
 function admin(){
  if(!tok)return login();
- const r=items.filter(i=>i.status===st.tab);
+ const ov={};items.filter(i=>i.ref).forEach(i=>ov[i.ref]=i);
+ const dbl=items.filter(i=>!i.ref||i.status!=="aprovado");
+ const cnt={pendente:dbl.filter(i=>i.status==="pendente").length,aprovado:dbl.filter(i=>i.status==="aprovado").length,base:A.length};
+ let body="";
+ if(st.tab==="base"){
+  body=A.map(a=>{const o=ov[a.id],gone=o&&o.titulo===GONE,ed=o&&!gone,t=ed?o.titulo:a.title;
+   return `<div class="box adm ${gone?"gone":""}" style="margin-bottom:10px"><b>${esc(t)}</b> ${ed?'<span class="tag edit">Editado</span>':""}${gone?'<span class="tag warn">Removido</span>':""}
+   <div class="meta">${esc(ed?o.cat:a.cat)} · ${esc(ed?o.marca:a.brand)} · ${esc(ed?o.equip:a.equip)}</div>
+   <div class="row">${gone?`<button class="btn alt" data-act="restore" data-id="${o.id}">Restaurar</button>`:`<button class="btn alt" data-edit="base" data-ref="${a.id}">Editar</button><button class="btn no" data-act="delbase" data-ref="${a.id}">Excluir</button>${ed?`<button class="btn alt" data-act="restore" data-id="${o.id}">Voltar ao original</button>`:""}`}</div></div>`}).join("");
+ }else{
+  const r=dbl.filter(i=>i.status===st.tab);
+  body=r.length?r.map(p=>`<div class="box adm" style="margin-bottom:10px"><b>${esc(p.titulo)}</b><div class="meta">${esc(p.cat)} · ${esc(p.marca)} · ${esc(p.equip)}</div>
+  <h3>Causas</h3>${esc(p.causas)}<h3>Passos</h3>${esc(p.passos)}${p.obs?`<h3>Obs.</h3>${esc(p.obs)}`:""}
+  <div class="row">${p.status==="pendente"?`<button class="btn ok" data-act="aprovado" data-id="${p.id}">Aprovar</button><button class="btn alt" data-edit="db" data-id="${p.id}">Editar</button><button class="btn no" data-act="rejeitado" data-id="${p.id}">Rejeitar</button>`:`<button class="btn alt" data-edit="db" data-id="${p.id}">Editar</button><button class="btn no" data-act="del" data-id="${p.id}">Excluir</button>`}</div></div>`).join(""):'<div class="empty">Nada por aqui.</div>';
+ }
  return `<div class="top"><button class="back" data-go="list">← Voltar</button><button class="lnk" data-logout>Sair</button></div><h2>Painel</h2>
- <div class="chips">${[["pendente","Pendentes"],["aprovado","Aprovados"]].map(c=>`<button class="chip ${st.tab===c[0]?"on":""}" data-tab="${c[0]}">${c[1]} (${items.filter(i=>i.status===c[0]).length})</button>`).join("")}</div>
- ${r.length?r.map(p=>`<div class="box" style="margin-bottom:10px"><b>${esc(p.titulo)}</b><div class="meta">${esc(p.cat)} · ${esc(p.marca)} · ${esc(p.equip)}</div>
- <h3>Causas</h3>${esc(p.causas)}<h3>Passos</h3>${esc(p.passos)}${p.obs?`<h3>Obs.</h3>${esc(p.obs)}`:""}
- <div class="row">${p.status==="pendente"?`<button class="btn ok" data-act="aprovado" data-id="${p.id}">Aprovar</button><button class="btn no" data-act="rejeitado" data-id="${p.id}">Rejeitar</button>`:`<button class="btn no" data-act="del" data-id="${p.id}">Remover</button>`}</div></div>`).join(""):'<div class="empty">Nada por aqui.</div>'}
+ <div class="chips">${[["pendente","Pendentes"],["aprovado","Enviadas"],["base","Soluções do site"]].map(c=>`<button class="chip ${st.tab===c[0]?"on":""}" data-tab="${c[0]}">${c[1]} (${cnt[c[0]]})</button>`).join("")}</div>
+ ${body}
  <p class="meta">${esc(msg)}</p>`}
+function editv(){
+ const e=st.edit;if(!tok||!e)return login();
+ return `<button class="back" data-go="admin">← Cancelar</button><h2>Editar solução</h2>
+ <label class="lb">Área</label><select id="e_cat"><option value="cftv" ${e.cat==="cftv"?"selected":""}>CFTV</option><option value="alarme" ${e.cat==="alarme"?"selected":""}>Alarme</option></select>
+ <label class="lb">Problema</label><input id="e_title" maxlength="120" value="${esc(e.titulo)}">
+ <label class="lb">Marca e modelo</label><input id="e_brand" maxlength="120" value="${esc(e.marca)}">
+ <label class="lb">Equipamento</label><input id="e_equip" maxlength="120" value="${esc(e.equip)}">
+ <label class="lb">Causas prováveis (uma por linha)</label><textarea id="e_causes" class="big" maxlength="2000">${esc(e.causas)}</textarea>
+ <label class="lb">Passo a passo (um por linha)</label><textarea id="e_steps" class="big" maxlength="4000">${esc(e.passos)}</textarea>
+ <label class="lb">Observações (opcional)</label><textarea id="e_notes" maxlength="2000">${esc(e.obs)}</textarea>
+ <div class="row"><button class="btn" data-save>Salvar alterações</button><button class="btn alt" data-go="admin">Cancelar</button></div><p class="meta">${esc(msg)}</p>`}
 function render(){
  const k=document.activeElement&&document.activeElement.id==="q";
- $("#app").innerHTML=({list,detail,form,admin}[st.v]||list)();
+ $("#app").innerHTML=({list,detail,form,admin,edit:editv}[st.v]||list)();
  if(k){const i=$("#q");i.focus();i.setSelectionRange(i.value.length,i.value.length)}}
-async function loadPub(){if(!cfg())return;try{const d=await api("/rest/v1/solucoes?status=eq.aprovado&order=created_at.desc&select=*");extra=d.map(x=>({id:x.id,cat:x.cat,title:x.titulo,brand:x.marca,equip:x.equip,causes:x.causas,steps:x.passos,notes:x.obs}));render()}catch(e){}}
+async function loadPub(){if(!cfg())return;try{const d=await api("/rest/v1/solucoes?status=eq.aprovado&order=created_at.desc&select=*");extra=d.map(x=>({id:x.id,ref:x.ref||null,removed:!!x.ref&&x.titulo===GONE,cat:x.cat,title:x.titulo,brand:x.marca,equip:x.equip,causes:x.causas,steps:x.passos,notes:x.obs}));render()}catch(e){}}
 async function loadAdm(){try{items=await api("/rest/v1/solucoes?status=neq.rejeitado&order=created_at.desc&select=*",{},tok);msg=""}catch(e){tok=null;try{localStorage.removeItem("sos_tok")}catch(x){}msg="Sessão expirada. Entre novamente."}render()}
 document.addEventListener("click",async e=>{
- const t=e.target.closest("[data-go],[data-cat],[data-open],[data-send],[data-act],[data-login],[data-logout],[data-tab]");if(!t)return;
+ const t=e.target.closest("[data-go],[data-cat],[data-open],[data-send],[data-act],[data-login],[data-logout],[data-tab],[data-edit],[data-save]");if(!t)return;
  const d=t.dataset;
  if(d.go){st.v=d.go;msg="";if(d.go==="admin"&&tok)loadAdm()}
  else if(d.cat)st.cat=d.cat;
@@ -236,10 +290,34 @@ document.addEventListener("click",async e=>{
   if(b.titulo.length<3||b.passos.length<5){msg="Preencha ao menos o problema e o passo a passo.";render();return}
   if(!cfg()){msg="Site ainda não configurado (falta a URL do banco).";render();return}
   try{await api("/rest/v1/solucoes",{method:"POST",body:JSON.stringify(b),headers:{Prefer:"return=minimal"}});msg="";st.v="list";alert("Enviado! Aguarde a aprovação do administrador.")}catch(x){msg="Não foi possível enviar. Tente de novo."}}
+ else if(d.edit){
+  if(d.edit==="db"){const p=items.find(i=>String(i.id)===d.id);
+   if(p){st.edit={ref:null,id:p.id,cat:p.cat,titulo:p.titulo,marca:p.marca,equip:p.equip,causas:p.causas,passos:p.passos,obs:p.obs||""};st.v="edit";msg="";scrollTo(0,0)}}
+  else{const a=A.find(x=>x.id===d.ref),o=items.find(i=>i.ref===d.ref&&i.titulo!==GONE);
+   st.edit=o?{ref:d.ref,id:o.id,cat:o.cat,titulo:o.titulo,marca:o.marca,equip:o.equip,causas:o.causas,passos:o.passos,obs:o.obs||""}
+    :{ref:d.ref,id:null,cat:a.cat,titulo:a.title,marca:a.brand,equip:a.equip,causas:a.causes.join("\n"),passos:a.steps.join("\n"),obs:a.notes||""};
+   st.v="edit";msg="";scrollTo(0,0)}}
+ else if(t.hasAttribute("data-save")){
+  const g=i=>$("#"+i).value.trim(),e=st.edit;
+  Object.assign(e,{cat:g("e_cat"),titulo:g("e_title"),marca:g("e_brand"),equip:g("e_equip"),causas:g("e_causes"),passos:g("e_steps"),obs:g("e_notes")});
+  const b={cat:e.cat,titulo:e.titulo,marca:e.marca,equip:e.equip,causas:e.causas,passos:e.passos,obs:e.obs};
+  if(b.titulo.length<3||b.passos.length<5){msg="Preencha ao menos o problema e o passo a passo."}
+  else try{
+   const H={headers:{Prefer:"return=minimal"}};
+   if(e.id)await api("/rest/v1/solucoes?id=eq."+e.id,{method:"PATCH",body:JSON.stringify(b),...H},tok);
+   else{await api("/rest/v1/solucoes",{method:"POST",body:JSON.stringify({...b,ref:e.ref,status:"pendente"}),...H});
+    await api("/rest/v1/solucoes?ref=eq."+e.ref+"&status=eq.pendente",{method:"PATCH",body:JSON.stringify({status:"aprovado"}),...H},tok)}
+   st.edit=null;st.v="admin";await loadAdm();loadPub();msg="Alterações salvas.";render();return
+  }catch(x){msg=/["']ref["']/.test(String(x.message))?"Falta criar a coluna 'ref' no Supabase para editar as soluções do site (veja as instruções).":"Falha ao salvar."}}
  else if(d.act){try{
-  if(d.act==="del")await api("/rest/v1/solucoes?id=eq."+d.id,{method:"DELETE"},tok);
+  if(d.act==="del"){if(!confirm("Excluir esta solução? Isso não pode ser desfeito."))return;await api("/rest/v1/solucoes?id=eq."+d.id,{method:"DELETE"},tok)}
+  else if(d.act==="restore"){if(!confirm("Voltar esta solução ao original?"))return;await api("/rest/v1/solucoes?id=eq."+d.id,{method:"DELETE"},tok)}
+  else if(d.act==="delbase"){if(!confirm("Tirar esta solução do site? Dá para restaurar depois na mesma aba."))return;
+   const H={headers:{Prefer:"return=minimal"}};
+   await api("/rest/v1/solucoes",{method:"POST",body:JSON.stringify({cat:A.find(x=>x.id===d.ref).cat,titulo:GONE,marca:"-",equip:"-",causas:"-",passos:"removido",ref:d.ref,status:"pendente"}),...H});
+   await api("/rest/v1/solucoes?ref=eq."+d.ref+"&status=eq.pendente",{method:"PATCH",body:JSON.stringify({status:"aprovado"}),...H},tok)}
   else await api("/rest/v1/solucoes?id=eq."+d.id,{method:"PATCH",body:JSON.stringify({status:d.act}),headers:{Prefer:"return=minimal"}},tok);
-  await loadAdm();loadPub();return}catch(x){msg="Falha ao salvar."}}
+  await loadAdm();loadPub();return}catch(x){msg=(d.act==="delbase"&&/["']ref["']/.test(String(x.message)))?"Falta criar a coluna 'ref' no Supabase para remover as soluções do site (veja as instruções).":"Falha ao salvar."}}
  render()});
 document.addEventListener("input",e=>{if(e.target.id==="q"){st.q=e.target.value;render()}});
 render();loadPub();
