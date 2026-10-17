@@ -42,6 +42,17 @@ a{color:var(--ac)}
 footer{margin-top:28px;text-align:center}
 .lnk{background:none;border:0;color:var(--mu);font-size:13px;cursor:pointer;text-decoration:underline}
 .empty{color:var(--mu);text-align:center;padding:24px 0}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.tile{display:flex;flex-direction:column;gap:2px;text-align:left;padding:16px 14px;border-radius:12px;border:1px solid var(--ln);border-left:5px solid var(--ac);background:var(--card);cursor:pointer;min-height:104px}
+.tile.alarme{border-left-color:var(--al)}
+.tile b{font-size:18px}.tile span{color:var(--mu);font-size:13px}.tile small{color:var(--ac);font-weight:600;margin-top:4px}
+.tile.alarme small{color:var(--al)}
+.sec{display:block;margin:20px 0 8px;padding:2px 0 2px 10px;border-left:5px solid var(--ac);color:var(--tx);font-size:15px;text-transform:none;letter-spacing:0}
+.sec.alarme{border-left-color:var(--al)}
+.tag.alarme{background:var(--al2);color:var(--al)}
+:root{--al:#c2570c;--al2:#fdf0e6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--al:#f0955a;--al2:#33241a}}
+:root[data-theme="dark"]{--al:#f0955a;--al2:#33241a}
 </style>
 </head>
 <body>
@@ -88,6 +99,52 @@ causes:["Animais, cortinas ou correntes de ar perto do sensor","Plantas e galhos
 steps:["Veja na memória de eventos qual zona disparou.","Inspecione o local: janelas abertas, cortinas, animais, vegetação.","Reposicione ou troque o sensor da zona.","Cubra o sensor temporariamente para saber se ele é a causa.","Pode, se houver câmera, ligar o pré-alarme para ver o que ocorreu."],
 notes:"Estudos do setor indicam que a grande maioria dos disparos é falsa, então vale a inspeção do ambiente primeiro.",
 src:[["Fulltime: como reduzir falsos disparos","https://fulltime.ops.fulltime.com.br/?p=2372"]]}
+,
+{id:"a9",cat:"cftv",title:"DVR/NVR sem acesso remoto pelo celular",brand:"Intelbras e geral",equip:"DVR / NVR + app",
+causes:["Serviço Cloud/P2P do gravador não está online","Portas não encaminhadas no roteador (web, serviço e RTSP)","IP público mudou e não há DDNS configurado","Dois roteadores em cascata (modem + roteador) sem redirecionar nos dois","Senha do gravador alterada e não atualizada no app"],
+steps:["Teste primeiro na mesma rede Wi-Fi do gravador, usando o IP local: se funciona, o problema é a saída para a internet.","Se o gravador tem Cloud/P2P, confirme que o status aparece online (é o caminho mais simples, sem redirecionar portas).","Sem Cloud, configure DDNS e redirecione as portas do gravador (ex.: serviço padrão 37777 e RTSP 554 na linha Intelbras) para o IP fixo do gravador.","Com modem + roteador, ponha o modem em modo bridge ou redirecione as portas em ambos.","Teste a porta de fora da rede com um verificador de portas e revise firewall.","Se mudou a senha do gravador, edite o cadastro dele nos apps e no software de PC."],
+notes:"Acesso pelo DDNS funcionar de fora mas não de dentro da rede pode ser limitação do roteador (NAT loopback), não falha do redirecionamento. Confirme portas padrão no manual do modelo.",
+src:[["Intelbras: ajuda DVR (Cloud, portas, senha)","https://www.intelbras.com/pt-br/ajuda-download/download/gravador-digital-de-video-tribrido-hdcvi-1016-g2"],["Cursa: P2P, DDNS, NAT e portas","https://cursa.app/pt/pagina/acesso-remoto-em-cftv-p2p-ddns-nat-e-nocoes-de-portas"],["CCTV Camera Pros: app remoto não funciona","https://videos.cctvcamerapros.com/support/topic/remote-access-to-view-security-cameras-from-iphone-app-not-working"]]},
+{id:"a10",cat:"cftv",title:"DVR não reconhece o HD",brand:"Intelbras e geral",equip:"DVR / NVR",
+causes:["HD fora da lista de compatibilidade do fabricante","HD comum de PC em vez de HD para vigilância","Cabo SATA ou alimentação do HD com mau contato","HD novo não inicializado/formatado no gravador","HD com defeito"],
+steps:["Consulte a lista de HDs compatíveis e a capacidade máxima do modelo do gravador.","Desligue o gravador e refaça os cabos SATA e de alimentação do HD.","Ligue e veja o status do HD no menu de armazenamento.","Se aparecer sem formatar, inicialize pelo menu do gravador.","Teste o HD em outro equipamento ou PC, e outro HD no gravador, para saber de que lado está o defeito.","Prefira HDs de linha vigilância, feitos para gravar 24 horas."],
+notes:"O fabricante só garante o funcionamento com HDs da lista de compatíveis. Formatar apaga as gravações: confirme com o cliente antes.",
+src:[["Intelbras: ajuda DVR (HD e senha)","https://www.intelbras.com/pt-br/ajuda-download/download/gravador-digital-de-video-tribrido-hdcvi-1016-g2"],["Intelbras: gravador HDCVI 3016","https://www.intelbras.com/pt-br/gravador-digital-de-video-hdcvi-hdcvi-3016"]]},
+{id:"a11",cat:"cftv",title:"DVR reiniciando sozinho",brand:"Intelbras e geral",equip:"DVR / NVR",
+causes:["Problema no HD","Interferência no sinal das câmeras","Problemas na rede, como ataque de negação de serviço","Oscilação ou fonte de alimentação fraca"],
+steps:["Troque a fonte do gravador por uma boa e teste em outro ponto de tomada, de preferência com estabilizador ou nobreak.","Desconecte o HD e veja se o gravador deixa de reiniciar; se sim, teste outro HD.","Desconecte as câmeras uma a uma ou em grupos para achar a que interfere.","Desconecte o cabo de rede por um tempo: se parar, investigue o tráfego e feche acessos externos desnecessários.","Atualize o firmware, se houver versão estável do fabricante."],
+notes:"Aja por eliminação: HD, câmeras, rede e energia, uma de cada vez.",
+src:[["Intelbras: gravador HDCVI 3016 (reinicialização)","https://www.intelbras.com/pt-br/gravador-digital-de-video-hdcvi-hdcvi-3016"]]},
+{id:"a12",cat:"cftv",title:"Esqueci a senha do DVR/NVR",brand:"Intelbras e geral",equip:"DVR / NVR",
+causes:["Senha perdida ou trocada por outra pessoa","Usuário bloqueado após várias tentativas erradas"],
+steps:["Se o usuário foi bloqueado, aguarde o tempo de bloqueio sem tentar logar de novo.","Nos modelos que permitem, use a recuperação por perguntas de segurança ou e-mail cadastrado.","Na linha Intelbras fora do Multi-HD, ou sem acesso às perguntas e ao e-mail, peça uma nova senha à Intelbras ou envie o equipamento para a assistência.","Tenha à mão o número de série e a data exibida na tela do gravador.","Depois de recuperar, anote a senha no cofre de senhas da empresa e atualize os apps."],
+notes:"O fabricante não permite resetar o administrador sem o processo oficial. Evite métodos não oficiais: abrem brecha de segurança e podem anular a garantia.",
+src:[["Intelbras: gravador iMHDX 5008","https://www.intelbras.com/pt-br/gravador-digital-inteligente-de-video-de-8-canais-imhdx-5008"]]},
+{id:"a13",cat:"cftv",title:"DVR não grava por detecção de movimento",brand:"Intelbras e geral",equip:"DVR / NVR",
+causes:["Detecção de movimento não configurada","Agenda de gravação sem o modo de movimento","Gravação do canal desativada","Área ou sensibilidade da detecção mal ajustadas"],
+steps:["No menu Detectar, ative a detecção de movimento no canal e ajuste área e sensibilidade.","No menu Agenda, marque o período em que a gravação por movimento deve valer.","No menu Gravação, confirme o canal e o modo (automático/agenda).","Faça um teste mexendo na frente da câmera e veja se aparece na busca de gravações.","Se necessário, force gravação contínua para comparar."],
+notes:"Na linha Intelbras, os três menus (Detectar, Agenda e Gravação) precisam estar configurados juntos.",
+src:[["Intelbras: gravador iMHDX 5008","https://www.intelbras.com/pt-br/gravador-digital-inteligente-de-video-de-8-canais-imhdx-5008"]]},
+{id:"a14",cat:"alarme",title:"Central ANM acusando falha na sirene",brand:"Intelbras",equip:"Central ANM 2004 MF / 2008 MF",
+causes:["Falta do resistor de 2K2 Ω da supervisão da sirene","Cabo da sirene cortado","Curto-circuito no cabo ou na sirene","Sirene com defeito ou acima da corrente da saída"],
+steps:["Confira se há o resistor de 2K2 Ω ligado na sirene (a supervisão contra corte e curto exige esse resistor).","Desligue a sirene da saída e meça: sem a sirene e sem o resistor a central acusa corte.","Teste o cabo procurando corte ou curto.","Compare o consumo da sirene com a corrente da saída (200 mA sem bateria, até 1 A com bateria na ANM 2008 MF).","Teste com outra sirene."],
+notes:"Valores conforme datasheet dos modelos ANM 2004 MF e 2008 MF. Confira no manual do modelo exato.",
+src:[["Datasheet ANM 2004 MF (Intelbras)","https://www.dicomp.com.br/downloads/materiais_apoio/datasheet/5794-1.pdf"]]},
+{id:"a15",cat:"alarme",title:"Central de alarme com bateria baixa ou sem carga",brand:"Intelbras e geral",equip:"Central de alarme + bateria 12 V",
+causes:["Bateria velha, que não segura mais a carga","Bateria desconectada ou com contato ruim","Polaridade invertida na ligação (queima o fusível da bateria)","Saída auxiliar com consumo acima do previsto","Carregador da central com defeito"],
+steps:["Confira os bornes e o cabo da bateria e a polaridade (vermelho no positivo, preto no negativo).","Veja se o fusível da bateria queimou, principalmente se houve inversão.","Meça a tensão da bateria com a central ligada na rede e compare com o manual.","Desligue a central da rede por um instante: se apaga, a bateria não está sustentando.","Some o consumo dos acessórios na saída auxiliar e na sirene.","Troque a bateria por uma de 12 V da mesma especificação."],
+notes:"A central também pode acusar bateria fraca de sensores e controles sem fio: verifique também esses.",
+src:[["Guia do usuário AMT 1004 RF (Intelbras)","https://backend.intelbras.com/sites/default/files/integration/guia-do-usuario-amt_1004_rf.pdf"],["Datasheet ANM 2004 MF","https://www.dicomp.com.br/downloads/materiais_apoio/datasheet/5794-1.pdf"]]},
+{id:"a16",cat:"alarme",title:"Controle não aciona a cerca ou ela desarma logo após armar",brand:"Intelbras",equip:"Central de cerca ELC",
+causes:["Controle cadastrado para armar só o setor de alarme","Zona com fio da central de alarme aberta","Perímetro alterado sem refazer o aprendizado"],
+steps:["Cadastre um novo botão do controle para ativar só o choque, ou choque e alarme.","Veja se a zona com fio está fechada: com ela aberta, ao armar o alarme a central dispara.","Refaça o aprendizado de perímetro depois de qualquer alteração.","Teste armar e esperar alguns minutos."],
+notes:"Cerca desarmando sozinha logo após armar costuma ser zona aberta com o controle ligado ao setor de alarme.",
+src:[["Intelbras: central de cerca elétrica (ajuda)","https://www.intelbras.com/pt-br/ajuda-download/download/central-de-cerca-eletrica-elc-5001"]]},
+{id:"a17",cat:"alarme",title:"Central de incêndio convencional com LED de falha",brand:"Intelbras",equip:"Central CIC 06L / 24L",
+causes:["Falha de bateria ou rede elétrica","Circuito da sirene com falha","Laço aberto ou com falha"],
+steps:["Identifique qual LED está aceso: Falha bateria/rede, Falha sirene ou Falha no laço.","Bateria/rede: confira a alimentação e a bateria.","Sirene: confira cabo e dispositivo da saída de sirene.","Laço: o monitoramento detecta laço aberto, então procure corte, emenda solta ou dispositivo retirado.","Depois de corrigir, use Reiniciar central para normalizar."],
+notes:"Use apenas dispositivos de detecção de incêndio da mesma linha do fabricante, conforme o manual.",
+src:[["Manual CIC 24L (Intelbras)","https://backend.intelbras.com/sites/default/files/2019-05/Manual_do_usuario_CIC_24L_%2001-17.pdf"],["Manual CIC 06L (Intelbras)","https://backend.intelbras.com/sites/default/files/2023-04/Manual_%20CIC06L_01-23.pdf"]]}
 ];
 const SB_URL="https://aayrkqbbyedwvszxyzrw.supabase.co",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFheXJrcWJieWVkd3Zzenh5enJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyMjM4NjgsImV4cCI6MjEwNzc5OTg2OH0.TTNQoP_Ek1Fhii8F0Lcw9RtqF0x386MMD30LVLkrVX0";
 const cfg=()=>SB_URL.startsWith("https://");
@@ -104,17 +161,28 @@ async function api(path,o={},t){
 const all=()=>A.concat(extra);
 function list(){
  const q=norm(st.q);
- const r=all().filter(a=>(st.cat==="todos"||a.cat===st.cat)&&(!q||norm([a.title,a.brand,a.equip,[].concat(a.causes||[]).join(" ")].join(" ")).includes(q)));
+ const base=all().filter(a=>!q||norm([a.title,a.brand,a.equip,[].concat(a.causes||[]).join(" ")].join(" ")).includes(q));
+ const AREAS=[["cftv","CFTV","Câmeras, DVR e NVR"],["alarme","Alarmes","Centrais, sensores, cerca e incêndio"]];
+ const n=c=>all().filter(a=>a.cat===c).length;
+ const card=a=>`<div class="card" data-open="${esc(a.id)}"><h2>${esc(a.title)}</h2><span class="tag ${a.cat}">${a.cat==="cftv"?"CFTV":"Alarme"}</span><small>${esc(a.brand)} · ${esc(a.equip)}</small></div>`;
+ const none='<div class="empty">Nada encontrado. Tente outra palavra ou envie uma solução.</div>';
+ let body="";
+ if(st.cat==="todos"){
+  if(!q)body+=`<div class="tiles">${AREAS.map(a=>`<button class="tile ${a[0]}" data-cat="${a[0]}"><b>${a[1]}</b><span>${a[2]}</span><small>${n(a[0])} soluções</small></button>`).join("")}</div>`;
+  body+=AREAS.map(a=>{const r=base.filter(x=>x.cat===a[0]);return r.length?`<h3 class="sec ${a[0]}">${a[1]} (${r.length})</h3>`+r.map(card).join(""):""}).join("")||none;
+ }else{
+  const a=AREAS.find(x=>x[0]===st.cat),r=base.filter(x=>x.cat===st.cat);
+  body=`<button class="back" data-cat="todos">← Todas as áreas</button><h3 class="sec ${a[0]}">${a[1]} (${r.length})</h3>`+(r.length?r.map(card).join(""):none);
+ }
  return `<div class="top"><div><h1>SOS Técnico</h1><small class="meta">CFTV e Alarmes</small></div><button class="btn" data-go="form">+ Enviar solução</button></div>
- <input id="q" type="search" placeholder="Buscar: marca, equipamento ou problema" value="${esc(st.q)}">
- <div class="chips">${[["todos","Todos"],["cftv","CFTV"],["alarme","Alarmes"]].map(c=>`<button class="chip ${st.cat===c[0]?"on":""}" data-cat="${c[0]}">${c[1]}</button>`).join("")}</div>
- ${r.length?r.map(a=>`<div class="card" data-open="${esc(a.id)}"><h2>${esc(a.title)}</h2><span class="tag">${a.cat==="cftv"?"CFTV":"Alarme"}</span><small>${esc(a.brand)} · ${esc(a.equip)}</small></div>`).join(""):'<div class="empty">Nada encontrado. Tente outra palavra ou envie uma solução.</div>'}
+ <input id="q" type="search" placeholder="Buscar em CFTV e Alarmes: marca, equipamento ou problema" value="${esc(st.q)}">
+ ${body}
  <footer><button class="lnk" data-go="admin">Acesso administrador</button></footer>`}
 function detail(){
  const a=all().find(x=>x.id===st.id);if(!a)return list();
  const L=x=>Array.isArray(x)?x:lines(x);
  return `<button class="back" data-go="list">← Voltar</button>
- <h2>${esc(a.title)}</h2><p class="meta"><span class="tag">${a.cat==="cftv"?"CFTV":"Alarme"}</span>${esc(a.brand)} · ${esc(a.equip)}</p>
+ <h2>${esc(a.title)}</h2><p class="meta"><span class="tag ${a.cat}">${a.cat==="cftv"?"CFTV":"Alarme"}</span>${esc(a.brand)} · ${esc(a.equip)}</p>
  <h3>Causas prováveis</h3><div class="box"><ul>${L(a.causes).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
  <h3>Passo a passo</h3><div class="box"><ol>${L(a.steps).map(x=>`<li>${esc(x)}</li>`).join("")}</ol></div>
  ${a.notes?`<h3>Observações</h3><div class="box">${esc(a.notes)}</div>`:""}
