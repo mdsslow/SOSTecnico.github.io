@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SOS Técnico | CFTV e Alarmes</title>
+<meta name="description" content="Base de consulta rápida para técnicos de segurança eletrônica: problemas e soluções de CFTV e alarmes.">
+<meta name="theme-color" content="#0b6bcb">
+<meta name="apple-mobile-web-app-title" content="SOS Técnico">
+<meta property="og:title" content="SOS Técnico | CFTV e Alarmes"><meta property="og:description" content="Problemas e soluções de CFTV e alarmes, direto ao ponto.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230b6bcb'/%3E%3Cpath d='M32 10l18 7v13c0 12-8 20-18 24C22 50 14 42 14 30V17z' fill='white'/%3E%3Ccircle cx='32' cy='31' r='7' fill='%230b6bcb'/%3E%3Ccircle cx='32' cy='31' r='3' fill='white'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAIAAACyr5FlAAAEmUlEQVR4nO3dTVLbQBRF4Ucqs7AcdhWWw67CclhABk45TuQrS1ar39/5hhSFG/VRS8gyevnx85cB93zzHgDiIg5IxAGJOCARByTigEQckIgDEnFAIg5IxAGJOCARByTigEQckIgDEnFAIg5IxAGJOCARByTigEQckIgDEnFAIg5IxAGJOP7x9fHmPYRAXvggtYkmXt8/548klO5xPFwqOifSNI4nDh8NK2kXx8GzilaJdIlj+Jlmh0qKxzHhr4/ClZSNY/IfpSUTqRaH+4WKSpXUicM9i1s1EkkfR6gmllJXkjWO4E0sZawkXxzpsriVK5E0caRuYilFJQniKJbFreCJxI2jcBNLMSsJF0erJpZCVRIojuZZ3AqSiH8cNLHCtxLPOMhiI69EHOKgiadNroQbjCERByTigEQckIgDEnFAIg5IxAGJOCARByTigEQckIgDEnFAIg5IxAGJOCB99x6Av5Xbq5rftNY3ji233F2/p2cl7eJ47jbMnpX0Ouc4foNukE+UzNFl5Rg4qZcf1WEJabFynLG7d1hC6sdx3iyW76N4HGfPX+0+KscxZ+YK91E2jplzVrWPsnHguJpxzN+VSy4eBePwmqd6fXS5CPbQfxe16s30E4jj/rXOyxebJ1LtsLJrOr8+3tavgj/8hiOvHl+1OLbbPusd3ka5q28ceKhUHNtX9b2Lwfbvr3RkKRUHxuoYx3PnEA3PPDrGgY2IA5JDHJVO2Waav918Vg762Mtli3U8rBz8dEIfbnE03NZP89pWnivH8N/5vEtV511eG/jSwzkfVlg/1vluH/9zjvj35sQf4Un8n9R0MXA13rtNV1564I/ay70M42YfEx9vjDA37qLE8fr+6fvmRagaggzG/5zjatQW8Yps1OsGKcNCxWGZ+6hXhkWLw4Jtncmi/e7h4hhl5uJR9VaPiHHkOriUPKBcRIzD8vRRuAwLG4dl6KN2GRY5DovdR/kyLM5FsLMN/Hhj1dPPpdArh43esY7P69gyIi8bFueNt3Vn7Kx7P1XrOwAXOeKwMxdzl/99Hr8MSxSHFTrYpyjD4p9z3MqyTdcl+i0yxYHJksWRaLe7K9f4k8Vh2bbvrXQjzxeHJdzKlnPMKeOwbNs612ivssaBCRLHkWV3zDLOpcRxWIbtHn+EK3LHYbG3fuSxbZE+Dos6BzFHtUuFOHCSInFE202jjec5ReKwSPMRZyQH1YnDYsxKhDGMUioO856bSmVYvTis8f9aGa5gHBilZhw8AHCImnEYz5UdoWwcxhOpD6sch/Es+2OKx4Ej6sdx3s5de9mwDnHYObNYvgxrEoeNnssOZVifOGzcjDYpw1rFgb16xXF8p++zbFi3OOzY7LYqwxrGYTzGa7OOcdiZT2qqpGkcluFhPO76xoGHWsexZUlou2xY8zjs0dx3LsOIw3QBzcsw4rhYdkAZRhxYQRx/3C4VLBsXxPHXpQnKuMr0H4wxGSsHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKARByQiAMScUAiDkjEAYk4IBEHJOKA9BtHjGZGlzTGkgAAAABJRU5ErkJggg==">
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#1b1f24;--mu:#5d6773;--ln:#e1e5ea;--ac:#0b6bcb;--ac2:#e8f1fc;--ok:#1a7f4b;--no:#c0392b;
+color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#101316;--card:#1a1e23;--tx:#eceff2;--mu:#9aa5b1;--ln:#2b3139;--ac:#5aa6f5;--ac2:#18283a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#101316;--card:#1a1e23;--tx:#eceff2;--mu:#9aa5b1;--ln:#2b3139;--ac:#5aa6f5;--ac2:#18283a;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:720px;margin:0 auto;padding:16px 14px 40px}
+h1{font-size:20px;margin:0}
+h2{font-size:18px;margin:0 0 6px}
+h3{font-size:14px;margin:18px 0 6px;color:var(--mu);text-transform:uppercase;letter-spacing:.04em}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+button,input,select,textarea{font:inherit;color:inherit}
+input,select,textarea{width:100%;padding:12px;border:1px solid var(--ln);border-radius:10px;background:var(--card);margin-bottom:10px}
+textarea{min-height:90px}
+.btn{border:0;background:var(--ac);color:#fff;padding:12px 16px;border-radius:10px;font-weight:600;cursor:pointer;min-height:44px}
+.btn.sec{background:var(--ac2);color:var(--ac)}
+.btn.ok{background:var(--ok)}.btn.no{background:var(--no)}
+.chips{display:flex;gap:8px;margin:2px 0 14px;overflow-x:auto}
+.chip{border:1px solid var(--ln);background:var(--card);padding:8px 14px;border-radius:99px;cursor:pointer;white-space:nowrap;min-height:40px}
+.chip.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer}
+.card small,.meta{color:var(--mu);font-size:13px}
+.tag{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;background:var(--ac2);color:var(--ac);margin-right:6px}
+ol,ul{padding-left:22px;margin:0}li{margin-bottom:6px}
+.box{background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:14px}
+a{color:var(--ac)}
+.back{background:none;border:0;color:var(--ac);padding:8px 0;font-weight:600;cursor:pointer;min-height:44px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+footer{margin-top:28px;text-align:center}
+.lnk{background:none;border:0;color:var(--mu);font-size:13px;cursor:pointer;text-decoration:underline}
+.empty{color:var(--mu);text-align:center;padding:24px 0}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+const A=[
+{id:"a1",cat:"cftv",title:"Câmera IP offline",brand:"Geral",equip:"Câmera IP / NVR",
+causes:["Cabo de rede ou conector com defeito","Porta PoE do switch sem energia ou sobrecarregada","Conflito de IP (dois equipamentos com o mesmo endereço)","Fonte ou extensão elétrica inadequada"],
+steps:["Veja o LED da câmera e se há IR ligado: sem sinal de vida costuma ser energia/PoE.","Troque o patch cord e teste outra porta do switch.","Se várias câmeras caíram juntas, verifique primeiro o switch.","Teste um ping até a câmera; se responde, o problema está no NVR/credenciais.","Fixe IP estático por câmera (fora da faixa do DHCP) para evitar conflito."],
+notes:"Na maioria dos casos o defeito é físico (cabo, PoE ou energia). Teste com cabo curto conhecido antes de trocar a câmera.",
+src:[["Pro-Vigil: problemas comuns","https://pro-vigil.com/blog/common-ip-camera-problems/"],["Deep Sentinel: câmeras PoE offline","https://support.deepsentinel.com/troubleshooting-offline-poe-cameras"]]},
+{id:"a2",cat:"cftv",title:"Câmera Wi-Fi fica offline em horários aleatórios",brand:"Geral",equip:"Câmera Wi-Fi",
+causes:["Câmera no limite do alcance do roteador","Muitas paredes entre câmera e roteador","Senha ou nome da rede foi alterado","Fonte original trocada ou extensão fraca"],
+steps:["Confira a intensidade do sinal no local da câmera usando o app da própria câmera (o celular pode ter antena melhor).","Aproxime o roteador, use repetidor/mesh ou ponto de acesso.","Reinicie roteador e câmera.","Se a rede mudou, refaça a configuração da câmera no app.","Use a fonte original e remova extensões para testar."],
+notes:"Evite instalar a câmera no limite do Wi-Fi. Quando possível, prefira cabo.",
+src:[["Intelbras: reconfigurar câmera no Wi-Fi (canal oficial no YouTube)","https://www.tupi.fm/?p=2413494"],["TP-Link Tapo: dispositivo offline","https://www.tapo.com/br/faq/42/"]]},
+{id:"a3",cat:"cftv",title:"DVR sem imagem com câmera HD analógica",brand:"Hikvision / Dahua / Intelbras",equip:"DVR + câmera HDTVI/HDCVI/AHD",
+causes:["DVR reconheceu o sinal de forma errada","Cabo coaxial ou conector BNC ruim","Câmera em formato de sinal que o DVR não aceita","Resolução da câmera maior que a suportada pelo canal do DVR"],
+steps:["Desconecte e reconecte o BNC para o DVR reconhecer a entrada.","Troque o cabo/conector para teste.","No botão do chicote da câmera, alterne o formato de sinal (TVI, AHD, CVI, CVBS).","Se a câmera for de resolução maior que o DVR, reduza a resolução pelo menu OSD via coaxial.","Confira no datasheet quais canais do DVR aceitam 4MP/5MP (às vezes só o canal 1)."],
+notes:"Muito comum ao instalar câmera 5MP em DVR 4MP ou 1080p.",
+src:[["Sunell: sem imagem câmera HD no DVR","https://www.sunellsecurity.com/what-to-do-if-there-is-abnormality-or-no-image-when-hd-camera-is-connected-to-dvr.html"],["Ertech: Hikvision DVR sem vídeo","https://www.ertech.co.uk/?p=19049"]]},
+{id:"a4",cat:"cftv",title:"Aparece ao vivo, mas não grava",brand:"Geral",equip:"DVR / NVR",
+causes:["HD com falha ou não inicializado","Agenda de gravação vazia","Gravação por evento sem eventos","Canal ou permissão configurados errado"],
+steps:["Veja o status do HD no menu de armazenamento (erro/anormal/sem espaço).","Se necessário, inicialize ou troque o HD.","Revise a agenda: force gravação contínua para teste.","Confirme se o stream de gravação está configurado para o canal certo.","Teste a reprodução após alguns minutos."],
+notes:"Modo evento sem eventos parece defeito, mas é só configuração.",
+src:[["Cursa: diagnóstico de problemas em CFTV","https://cursa.app/pt/pagina/diagnostico-de-problemas-em-cftv-imagem-rede-poe-e-gravacao"]]},
+{id:"a5",cat:"cftv",title:"Imagem travando, quadros pulando ou com atraso",brand:"Geral",equip:"Câmera IP / NVR",
+causes:["Bitrate alto demais para a rede","Codec ou perfil incompatível","Resolução/FPS acima do suportado pelo NVR ou cliente","Perda de pacotes na rede"],
+steps:["Reduza bitrate, FPS ou resolução do stream que está travando.","Use o substream no celular/remoto.","Teste com cabo direto e verifique erros na porta do switch.","Atualize o firmware se houver versão estável.","Confirme se o NVR suporta o codec (H.265 etc.)."],
+notes:"Para acesso remoto, a internet de upload costuma ser o limite.",
+src:[["Cursa: diagnóstico de problemas em CFTV","https://cursa.app/pt/pagina/diagnostico-de-problemas-em-cftv-imagem-rede-poe-e-gravacao"]]},
+{id:"a6",cat:"alarme",title:"Central de cerca elétrica disparando em falso",brand:"Intelbras",equip:"Central de choque ELC",
+causes:["Fio fora da bitola ou metragem recomendada no manual","Nível de tensão forte demais para o perímetro","Zona com fio aberta quando o controle arma o setor de alarme","Perímetro alterado sem refazer o aprendizado"],
+steps:["Confira bitola e metragem do fio no manual do modelo.","Reduza o nível de tensão se o perímetro for pequeno.","Verifique se a zona com fio está fechada.","Refaça o aprendizado de perímetro após qualquer alteração.","Cadastre o botão do controle para o setor correto (choque, alarme ou ambos)."],
+notes:"Sem sensação de choque? Verifique se os cabos de alta isolação passam a menos de 2 cm um do outro.",
+src:[["Intelbras: central de cerca elétrica (ajuda)","https://www.intelbras.com/pt-br/ajuda-download/download/central-de-cerca-eletrica-elc-5001"]]},
+{id:"a7",cat:"alarme",title:"Central de incêndio endereçável: falha no circuito de sirene",brand:"Intelbras",equip:"CIE 1125 / 1250 / 2500",
+causes:["Falta do resistor de fim de linha (4k7 Ω) na saída S2","Falta de alimentação 24 V em dispositivos","Endereços repetidos no laço","Aterramento com fuga ou malha em curto"],
+steps:["Confirme o resistor de 4k7 Ω na última sirene do laço convencional.","Teste o resistor direto no borne S2 e reinicie a central.","Procure endereços repetidos no laço.","Desconecte laços e sirenes um a um para isolar o trecho com falha.","Se a falha persistir sem cabos conectados, encaminhe para a assistência."],
+notes:"Revise a malha de aterramento nas emendas e no borne terra da central.",
+src:[["Intelbras: FAQ CIE 1125, 1250 e 2500 (PDF)","https://backend.intelbras.com/sites/default/files/2024-08/FAQ%20-%20CIE%201125%2C%20CIE%201250%20e%20CIE%202500.pdf"]]},
+{id:"a8",cat:"alarme",title:"Alarme disparando sozinho (falso disparo)",brand:"Geral",equip:"Central de alarme + sensores",
+causes:["Animais, cortinas ou correntes de ar perto do sensor","Plantas e galhos encostando em sensores ou cerca","Sensor com defeito ou mal posicionado","Zona específica repetindo o disparo (memória da central)"],
+steps:["Veja na memória de eventos qual zona disparou.","Inspecione o local: janelas abertas, cortinas, animais, vegetação.","Reposicione ou troque o sensor da zona.","Cubra o sensor temporariamente para saber se ele é a causa.","Pode, se houver câmera, ligar o pré-alarme para ver o que ocorreu."],
+notes:"Estudos do setor indicam que a grande maioria dos disparos é falsa, então vale a inspeção do ambiente primeiro.",
+src:[["Fulltime: como reduzir falsos disparos","https://fulltime.ops.fulltime.com.br/?p=2372"]]}
+];
+const SB_URL="https://aayrkqbbyedwvszxyzrw.supabase.co/rest/v1/",SB_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFheXJrcWJieWVkd3Zzenh5enJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIyMjM4NjgsImV4cCI6MjEwNzc5OTg2OH0.TTNQoP_Ek1Fhii8F0Lcw9RtqF0x386MMD30LVLkrVX0";
+const cfg=()=>SB_URL.startsWith("https://");
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const lines=t=>String(t||"").split(/\n+/).map(x=>x.trim()).filter(Boolean);
+const norm=s=>String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+let st={v:"list",q:"",cat:"todos",id:null,tab:"pendente"},extra=[],items=[],msg="",tok=null;
+try{tok=localStorage.getItem("sos_tok")}catch(e){}
+async function api(path,o={},t){
+ const r=await fetch(SB_URL+path,{...o,headers:{apikey:SB_KEY,...((t||SB_KEY.startsWith("eyJ"))?{Authorization:"Bearer "+(t||SB_KEY)}:{}),"Content-Type":"application/json",...(o.headers||{})}});
+ if(!r.ok)throw new Error(r.status+" "+await r.text());
+ const x=await r.text();return x?JSON.parse(x):null}
+const all=()=>A.concat(extra);
+function list(){
+ const q=norm(st.q);
+ const r=all().filter(a=>(st.cat==="todos"||a.cat===st.cat)&&(!q||norm([a.title,a.brand,a.equip,[].concat(a.causes||[]).join(" ")].join(" ")).includes(q)));
+ return `<div class="top"><div><h1>SOS Técnico</h1><small class="meta">CFTV e Alarmes</small></div><button class="btn" data-go="form">+ Enviar solução</button></div>
+ <input id="q" type="search" placeholder="Buscar: marca, equipamento ou problema" value="${esc(st.q)}">
+ <div class="chips">${[["todos","Todos"],["cftv","CFTV"],["alarme","Alarmes"]].map(c=>`<button class="chip ${st.cat===c[0]?"on":""}" data-cat="${c[0]}">${c[1]}</button>`).join("")}</div>
+ ${r.length?r.map(a=>`<div class="card" data-open="${esc(a.id)}"><h2>${esc(a.title)}</h2><span class="tag">${a.cat==="cftv"?"CFTV":"Alarme"}</span><small>${esc(a.brand)} · ${esc(a.equip)}</small></div>`).join(""):'<div class="empty">Nada encontrado. Tente outra palavra ou envie uma solução.</div>'}
+ <footer><button class="lnk" data-go="admin">Acesso administrador</button></footer>`}
+function detail(){
+ const a=all().find(x=>x.id===st.id);if(!a)return list();
+ const L=x=>Array.isArray(x)?x:lines(x);
+ return `<button class="back" data-go="list">← Voltar</button>
+ <h2>${esc(a.title)}</h2><p class="meta"><span class="tag">${a.cat==="cftv"?"CFTV":"Alarme"}</span>${esc(a.brand)} · ${esc(a.equip)}</p>
+ <h3>Causas prováveis</h3><div class="box"><ul>${L(a.causes).map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>
+ <h3>Passo a passo</h3><div class="box"><ol>${L(a.steps).map(x=>`<li>${esc(x)}</li>`).join("")}</ol></div>
+ ${a.notes?`<h3>Observações</h3><div class="box">${esc(a.notes)}</div>`:""}
+ ${(a.src&&a.src.length)?`<h3>Fontes</h3><div class="box">${a.src.map(s=>`<div><a href="${esc(s[1])}" target="_blank" rel="noopener">${esc(s[0])}</a></div>`).join("")}</div>`:""}
+ <p class="meta">Confirme no manual do modelo antes de aplicar.</p>`}
+function form(){
+ return `<button class="back" data-go="list">← Voltar</button><h2>Enviar solução</h2>
+ <p class="meta">Seu envio passa pela aprovação do administrador antes de aparecer. Não inclua dados de clientes.</p>
+ <select id="f_cat"><option value="cftv">CFTV</option><option value="alarme">Alarme</option></select>
+ <input id="f_title" maxlength="120" placeholder="Problema (ex.: DVR sem imagem)">
+ <input id="f_brand" maxlength="120" placeholder="Marca e modelo">
+ <input id="f_equip" maxlength="120" placeholder="Equipamento">
+ <textarea id="f_causes" maxlength="2000" placeholder="Causas prováveis (uma por linha)"></textarea>
+ <textarea id="f_steps" maxlength="4000" placeholder="Passo a passo (um por linha)"></textarea>
+ <textarea id="f_notes" maxlength="2000" placeholder="Observações (opcional)"></textarea>
+ <input id="f_site" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+ <button class="btn" data-send>Enviar para aprovação</button><p class="meta">${esc(msg)}</p>`}
+function login(){return `<button class="back" data-go="list">← Voltar</button><h2>Acesso administrador</h2>
+ <input id="l_mail" type="email" placeholder="E-mail" autocomplete="username"><input id="l_pass" type="password" placeholder="Senha" autocomplete="current-password">
+ <button class="btn" data-login>Entrar</button><p class="meta">${esc(msg)}</p>`}
+function admin(){
+ if(!tok)return login();
+ const r=items.filter(i=>i.status===st.tab);
+ return `<div class="top"><button class="back" data-go="list">← Voltar</button><button class="lnk" data-logout>Sair</button></div><h2>Painel</h2>
+ <div class="chips">${[["pendente","Pendentes"],["aprovado","Aprovados"]].map(c=>`<button class="chip ${st.tab===c[0]?"on":""}" data-tab="${c[0]}">${c[1]} (${items.filter(i=>i.status===c[0]).length})</button>`).join("")}</div>
+ ${r.length?r.map(p=>`<div class="box" style="margin-bottom:10px"><b>${esc(p.titulo)}</b><div class="meta">${esc(p.cat)} · ${esc(p.marca)} · ${esc(p.equip)}</div>
+ <h3>Causas</h3>${esc(p.causas)}<h3>Passos</h3>${esc(p.passos)}${p.obs?`<h3>Obs.</h3>${esc(p.obs)}`:""}
+ <div class="row">${p.status==="pendente"?`<button class="btn ok" data-act="aprovado" data-id="${p.id}">Aprovar</button><button class="btn no" data-act="rejeitado" data-id="${p.id}">Rejeitar</button>`:`<button class="btn no" data-act="del" data-id="${p.id}">Remover</button>`}</div></div>`).join(""):'<div class="empty">Nada por aqui.</div>'}
+ <p class="meta">${esc(msg)}</p>`}
+function render(){
+ const k=document.activeElement&&document.activeElement.id==="q";
+ $("#app").innerHTML=({list,detail,form,admin}[st.v]||list)();
+ if(k){const i=$("#q");i.focus();i.setSelectionRange(i.value.length,i.value.length)}}
+async function loadPub(){if(!cfg())return;try{const d=await api("/rest/v1/solucoes?status=eq.aprovado&order=created_at.desc&select=*");extra=d.map(x=>({id:x.id,cat:x.cat,title:x.titulo,brand:x.marca,equip:x.equip,causes:x.causas,steps:x.passos,notes:x.obs}));render()}catch(e){}}
+async function loadAdm(){try{items=await api("/rest/v1/solucoes?status=neq.rejeitado&order=created_at.desc&select=*",{},tok);msg=""}catch(e){tok=null;try{localStorage.removeItem("sos_tok")}catch(x){}msg="Sessão expirada. Entre novamente."}render()}
+document.addEventListener("click",async e=>{
+ const t=e.target.closest("[data-go],[data-cat],[data-open],[data-send],[data-act],[data-login],[data-logout],[data-tab]");if(!t)return;
+ const d=t.dataset;
+ if(d.go){st.v=d.go;msg="";if(d.go==="admin"&&tok)loadAdm()}
+ else if(d.cat)st.cat=d.cat;
+ else if(d.tab)st.tab=d.tab;
+ else if(d.open){st.v="detail";st.id=d.open;scrollTo(0,0)}
+ else if(t.hasAttribute("data-logout")){tok=null;try{localStorage.removeItem("sos_tok")}catch(x){}st.v="list"}
+ else if(t.hasAttribute("data-login")){
+  try{const r=await api("/auth/v1/token?grant_type=password",{method:"POST",body:JSON.stringify({email:$("#l_mail").value.trim(),password:$("#l_pass").value})});
+   tok=r.access_token;try{localStorage.setItem("sos_tok",tok)}catch(x){}msg="";await loadAdm();return}catch(x){let m=String(x.message);try{const j=JSON.parse(m.slice(m.indexOf("{")));m=j.error_description||j.msg||j.message||m}catch(e){}msg="Falha no login: "+m}}
+ else if(t.hasAttribute("data-send")){
+  const g=i=>$("#"+i).value.trim();
+  const b={cat:g("f_cat"),titulo:g("f_title"),marca:g("f_brand"),equip:g("f_equip"),causas:g("f_causes"),passos:g("f_steps"),obs:g("f_notes"),status:"pendente"};
+  if(g("f_site")){st.v="list";render();return}
+  if(b.titulo.length<3||b.passos.length<5){msg="Preencha ao menos o problema e o passo a passo.";render();return}
+  if(!cfg()){msg="Site ainda não configurado (falta a URL do banco).";render();return}
+  try{await api("/rest/v1/solucoes",{method:"POST",body:JSON.stringify(b),headers:{Prefer:"return=minimal"}});msg="";st.v="list";alert("Enviado! Aguarde a aprovação do administrador.")}catch(x){msg="Não foi possível enviar. Tente de novo."}}
+ else if(d.act){try{
+  if(d.act==="del")await api("/rest/v1/solucoes?id=eq."+d.id,{method:"DELETE"},tok);
+  else await api("/rest/v1/solucoes?id=eq."+d.id,{method:"PATCH",body:JSON.stringify({status:d.act}),headers:{Prefer:"return=minimal"}},tok);
+  await loadAdm();loadPub();return}catch(x){msg="Falha ao salvar."}}
+ render()});
+document.addEventListener("input",e=>{if(e.target.id==="q"){st.q=e.target.value;render()}});
+render();loadPub();
+</script>
+</body>
+</html>
